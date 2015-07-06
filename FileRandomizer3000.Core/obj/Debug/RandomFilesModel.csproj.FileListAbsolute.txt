@@ -1,0 +1,5 @@
+D:\my projects\RandomFiles\RandomFilesModel\obj\Debug\RandomFilesModel.csprojResolveAssemblyReference.cache
+D:\my projects\RandomFiles\RandomFilesModel\bin\Debug\RandomFilesModel.dll
+D:\my projects\RandomFiles\RandomFilesModel\bin\Debug\RandomFilesModel.pdb
+D:\my projects\RandomFiles\RandomFilesModel\obj\Debug\RandomFilesModel.dll
+D:\my projects\RandomFiles\RandomFilesModel\obj\Debug\RandomFilesModel.pdb

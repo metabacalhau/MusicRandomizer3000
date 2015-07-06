@@ -1,0 +1,10 @@
+D:\Projects\RandomFiles\RandomFilesModel\obj\Release\ResolveAssemblyReference.cache
+D:\Projects\RandomFiles\RandomFilesModel\bin\Release\Core.dll
+D:\Projects\RandomFiles\RandomFilesModel\bin\Release\Core.pdb
+D:\Projects\RandomFiles\RandomFilesModel\obj\Release\Core.dll
+D:\Projects\RandomFiles\RandomFilesModel\obj\Release\Core.pdb
+D:\Projects\RandomFiles\Core\bin\Release\Core.dll
+D:\Projects\RandomFiles\Core\bin\Release\Core.pdb
+D:\Projects\RandomFiles\Core\obj\Release\ResolveAssemblyReference.cache
+D:\Projects\RandomFiles\Core\obj\Release\Core.dll
+D:\Projects\RandomFiles\Core\obj\Release\Core.pdb
