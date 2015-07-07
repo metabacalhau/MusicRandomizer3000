@@ -1,9 +1,0 @@
-D:\projects\My projects\RandomFiles\RandomFilesModel\bin\Release\RandomFilesModel.dll
-D:\projects\My projects\RandomFiles\RandomFilesModel\bin\Release\RandomFilesModel.pdb
-D:\projects\My projects\RandomFiles\RandomFilesModel\obj\Release\RandomFilesModel.dll
-D:\projects\My projects\RandomFiles\RandomFilesModel\obj\Release\RandomFilesModel.pdb
-D:\Projects\RandomFiles\RandomFilesModel\obj\Release\ResolveAssemblyReference.cache
-D:\Projects\RandomFiles\RandomFilesModel\bin\Release\Model.dll
-D:\Projects\RandomFiles\RandomFilesModel\bin\Release\Model.pdb
-D:\Projects\RandomFiles\RandomFilesModel\obj\Release\Model.dll
-D:\Projects\RandomFiles\RandomFilesModel\obj\Release\Model.pdb
