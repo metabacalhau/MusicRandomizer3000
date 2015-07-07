@@ -7,14 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileRandomizer3000.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileRandomizer3000.WinForms", "FileRandomizer3000.WinForms\FileRandomizer3000.WinForms.csproj", "{B2AECA62-9834-4FD8-9AE8-52A4B0F15018}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{926B5DA7-ACB1-4C0D-92E6-8A2C2CA8788B}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileRandomizer3000.Tests", "FileRandomizer3000.Tests\FileRandomizer3000.Tests.csproj", "{50D58395-36EE-4488-B1A8-B65FE86ADBFB}"
 EndProject
 Global
