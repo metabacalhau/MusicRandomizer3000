@@ -31,7 +31,6 @@ namespace FileRandomizer3000.WinForms
                 .RegisterService<ITraverseService, TraverseService>()
                 .RegisterService<IFileHelper, FileHelper>()
                 .RegisterService<IFileService, FileService>()
-                .RegisterService<ITagService, TagService>()
                 .RegisterService<IEqualityComparer<AppFile>, FileNameSizeComparer>()
                 .RegisterService<IBackgroundWorkerFactory, BackgroundWorkerFactory>()
                 .RegisterService<ICopyWorker, CopyWorker>()

@@ -65,9 +65,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UltraID3Lib">
-      <HintPath>..\FileRandomizer3000.Libraries\UltraID3Lib-0.9.6.8\UltraID3Lib.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\ApplicationController.cs">
@@ -143,7 +140,6 @@
     <Compile Include="Presenters\CopyProcessPresenter.cs" />
     <Compile Include="Services\RandomizerWorker.cs" />
     <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="Services\TagService.cs" />
     <Compile Include="Services\TraverseService.cs" />
     <Compile Include="ViewModels\RandomizedFiles.cs" />
     <Compile Include="ViewModels\UniqueCharsPosition.cs" />
