@@ -1,4 +1,5 @@
-﻿using FileRandomizer3000.Core.Models;
+﻿using FileRandomizer3000.Core.Enums;
+using FileRandomizer3000.Core.Models;
 using FileRandomizer3000.Core.Services;
 using FileRandomizer3000.Core.Services.Interfaces;
 using FileRandomizer3000.Tests.Helpers;
@@ -396,7 +397,8 @@ namespace FileRandomizer3000.Tests.UnitTests.Services
             // arrange
             _settings = new RandomizerWorkerSettings
             {
-                FilesNumberLimit = 1
+                FilesNumberLimit = 1,
+                SelectedLimit = LimitType.FilesNumber
             };
 
             FileEnumerationStub stub = new FileEnumerationStub(_backgroundWorkerMock);
@@ -418,7 +420,8 @@ namespace FileRandomizer3000.Tests.UnitTests.Services
             // arrange
             _settings = new RandomizerWorkerSettings
             {
-                FilesNumberLimit = 1
+                FilesNumberLimit = 1,
+                SelectedLimit = LimitType.FilesNumber
             };
 
             FileEnumerationStub stub = new FileEnumerationStub(_backgroundWorkerMock);
@@ -440,12 +443,13 @@ namespace FileRandomizer3000.Tests.UnitTests.Services
             _settings = new RandomizerWorkerSettings
             {
                 FoldersNumberLimit = 1,
-                FilesNumberPerFolderLimit = 1
+                FilesNumberPerFolderLimit = 1,
+                SelectedLimit = LimitType.FilesNumberPerFolder
             };
 
             FileEnumerationStub stub = new FileEnumerationStub(_backgroundWorkerMock);
 
-            //_fileServiceMock.Setup(x => x.GetFilesByFoldersAndFilesNumber(It.IsAny<bool>(), It.IsAny<IEnumerable<AppFile>>(), It.IsAny<IEnumerable<AppFile>>(), _settings.FoldersNumberLimit.Value, _settings.FilesInFolderNumberLimit.Value)).Returns(stub.GetFiles);
+            _fileServiceMock.Setup(x => x.GetFilesByFilesNumber(It.IsAny<bool>(), It.IsAny<IEnumerable<AppFile>>(), It.IsAny<IEnumerable<AppFile>>(), _settings.FoldersNumberLimit)).Returns(stub.GetFiles);
 
             // act
             _worker.Run(_settings, (x) => { }, (y) => { }, () => { });
@@ -463,12 +467,13 @@ namespace FileRandomizer3000.Tests.UnitTests.Services
             _settings = new RandomizerWorkerSettings
             {
                 FoldersNumberLimit = 1,
-                FilesNumberPerFolderLimit = 1
+                FilesNumberPerFolderLimit = 1,
+                SelectedLimit = LimitType.FilesNumberPerFolder
             };
 
             FileEnumerationStub stub = new FileEnumerationStub(_backgroundWorkerMock);
 
-            //_fileServiceMock.Setup(x => x.GetFilesByFoldersAndFilesNumber(It.IsAny<bool>(), It.IsAny<IEnumerable<AppFile>>(), It.IsAny<IEnumerable<AppFile>>(), _settings.FoldersNumberLimit.Value, _settings.FilesInFolderNumberLimit.Value)).Returns(stub.GetFilesWithCancelCallback);
+            _fileServiceMock.Setup(x => x.GetFilesByFilesNumber(It.IsAny<bool>(), It.IsAny<IEnumerable<AppFile>>(), It.IsAny<IEnumerable<AppFile>>(), _settings.FoldersNumberLimit)).Returns(stub.GetFilesWithCancelCallback);
 
             // act
             _worker.Run(_settings, (x) => { }, (y) => { }, () => { });

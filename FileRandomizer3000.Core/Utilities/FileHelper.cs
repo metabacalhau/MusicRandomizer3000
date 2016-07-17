@@ -80,7 +80,18 @@ namespace FileRandomizer3000.Core.Utilities
 
         public AppFile GetRandomFile(IEnumerable<AppFile> files)
         {
-            return files.PickRandom();
+            if (files == null)
+            {
+                throw new ArgumentNullException("files");
+            }
+            else if (!files.Any())
+            {
+                return null;
+            }
+            else
+            {
+                return files.PickRandom();
+            }
         }
     }
 }

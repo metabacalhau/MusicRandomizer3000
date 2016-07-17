@@ -27,12 +27,12 @@ namespace FileRandomizer3000.Core.Infrastructure
             _container.Configure(c => c.ForSingletonOf<TService>().Use<TService>());
         }
 
-        public void RegisterInstance<T>(T instance)
+        public void RegisterInstance<T>(T instance) where T : class
         {
             _container.Configure(c => c.For<T>().Use(instance));
         }
 
-        public void RegisterSingletonInstance<T>(T instance)
+        public void RegisterSingletonInstance<T>(T instance) where T : class
         {
             _container.Configure(c => c.ForSingletonOf<T>().Use(instance));
         }

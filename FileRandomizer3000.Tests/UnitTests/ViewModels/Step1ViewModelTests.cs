@@ -1,4 +1,5 @@
-﻿using FileRandomizer3000.Core.Models;
+﻿using FileRandomizer3000.Core.Enums;
+using FileRandomizer3000.Core.Models;
 using FileRandomizer3000.Core.Services.Interfaces;
 using FileRandomizer3000.Core.ViewModels;
 using FileRandomizer3000.Tests.Helpers;
@@ -22,6 +23,8 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         public void SetUp()
         {
             _globalWizardViewModelMock = new Mock<GlobalWizardViewModel>(It.IsAny<string>());
+            _globalWizardViewModelMock.SetupGet(x => x.RandomizerWorkerSettings).Returns(new Mock<RandomizerWorkerSettings>().Object);
+            _globalWizardViewModelMock.SetupGet(x => x.CopyWorkerSettings).Returns(new Mock<CopyWorkerSettings>().Object);
             _settingsServiceMock = new Mock<ISettingsService>();
             _step1ViewModelMock = new Mock<Step1ViewModel>(_globalWizardViewModelMock.Object, _settingsServiceMock.Object);
             _step1ViewModelMock.CallBase = true;
@@ -213,7 +216,7 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             bool _valueIsSet = false;
 
-            _globalWizardViewModelMock.SetupSet(x => x.FormTitle).Callback((value) =>
+            _globalWizardViewModelMock.SetupSet<string>(x => x.FormTitle = It.IsAny<string>()).Callback(value =>
             {
                 if (value == formTitleValue)
                 {
@@ -229,120 +232,79 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         [Test]
         public void UpdateGlobalModel_FindOnlyUniqueFiles_MustSetValueOnGlobalModel()
         {
-            bool _valueIsSet = false;
 
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.FindOnlyUniqueFiles);
             _step1ViewModelMock.Object.FindOnlyUniqueFiles = true;
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.FindOnlyUniqueFiles).Callback((value) =>
-            {
-                if (value == _step1ViewModelMock.Object.FindOnlyUniqueFiles)
-                {
-                    _valueIsSet = true;
-                }
-            });
 
             _step1ViewModelMock.Object.UpdateGlobalModel();
 
-            Assert.IsTrue(_valueIsSet);
+            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.FindOnlyUniqueFiles = _step1ViewModelMock.Object.FindOnlyUniqueFiles, Times.Once());
         }
 
         [Test]
         public void UpdateGlobalModel_UseRecursiveSearch_MustSetValueOnGlobalModel()
         {
-            bool _valueIsSet = false;
-
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.UseRecursiveSearch);
             _step1ViewModelMock.Object.UseRecursiveSearch = true;
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.UseRecursiveSearch).Callback((value) =>
-            {
-                if (value == _step1ViewModelMock.Object.UseRecursiveSearch)
-                {
-                    _valueIsSet = true;
-                }
-            });
 
             _step1ViewModelMock.Object.UpdateGlobalModel();
 
-            Assert.IsTrue(_valueIsSet);
+            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.UseRecursiveSearch = _step1ViewModelMock.Object.UseRecursiveSearch, Times.Once());
         }
 
         [Test]
         public void UpdateGlobalModel_PathFrom_MustSetValueOnGlobalModel()
         {
-            bool _valueIsSet = false;
-
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.PathFrom);
             _step1ViewModelMock.Object.PathFrom = "value";
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.PathFrom).Callback((value) =>
-            {
-                if (value == _step1ViewModelMock.Object.PathFrom)
-                {
-                    _valueIsSet = true;
-                }
-            });
 
             _step1ViewModelMock.Object.UpdateGlobalModel();
 
-            Assert.IsTrue(_valueIsSet);
+            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.PathFrom = _step1ViewModelMock.Object.PathFrom, Times.Once());
         }
 
         [Test]
-        public void UpdateGlobalModel_SizeLimitBytes_MustSetValueOnGlobalModelIfSelectedFilesLimitEqualsOne()
+        public void UpdateGlobalModel_SizeLimitBytes_MustSetValueOnGlobalModelIfSelectedFilesLimitEqualsZero()
         {
             Mock<FilesSizeLimitSettings> filesSizeLimitSettingsMock = new Mock<FilesSizeLimitSettings>();
             filesSizeLimitSettingsMock.SetupGet(x => x.SizeLimitBytes).Returns(100);
-
-            bool _valueIsSet = false;
-
-            _step1ViewModelMock.Object.SelectedFilesLimit = _step1ViewModelMock.Object.FilesLimitTypes.Single(x => x.ID == 1);
+            _step1ViewModelMock.Object.SelectedFilesLimit = _step1ViewModelMock.Object.FilesLimitTypes.Single(x => x.ID == (int)LimitType.FilesTotalSize);
             _step1ViewModelMock.SetupGet(x => x.FilesSize).Returns(filesSizeLimitSettingsMock.Object);
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.SizeLimitBytes).Callback((value) =>
-            {
-                if (value == filesSizeLimitSettingsMock.Object.SizeLimitBytes)
-                {
-                    _valueIsSet = true;
-                }
-            });
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.SizeLimitBytes);
 
             _step1ViewModelMock.Object.UpdateGlobalModel();
 
-            Assert.IsTrue(_valueIsSet);
+            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.SizeLimitBytes = 100, Times.Once());
         }
 
         [Test]
         public void UpdateGlobalModel_SizeLimitBytes_MustNotSetValueOnGlobalModelIfSelectedFilesLimitDoesNotEqualOne()
         {
             _step1ViewModelMock.SetupGet(x => x.SelectedFilesLimit).Returns(new Limit());
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.SizeLimitBytes).Verifiable();
+            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.SizeLimitBytes = It.IsAny<double>()).Verifiable();
 
             _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.SizeLimitBytes = It.IsAny<double>(), Times.Never);
         }
 
         [Test]
-        public void UpdateGlobalModel_FilesNumberLimit_MustSetValueOnGlobalModelIfSelectedFilesLimitEqualsTwo()
+        public void UpdateGlobalModel_FilesNumberLimit_MustSetValueOnGlobalModelIfSelectedFilesLimitEqualsOne()
         {
             Mock<FilesNumberLimitSettings> filesNumberLimitSettingsMock = new Mock<FilesNumberLimitSettings>();
             filesNumberLimitSettingsMock.SetupGet(x => x.Number).Returns(100);
-
-            bool _valueIsSet = false;
-
-            _step1ViewModelMock.Object.SelectedFilesLimit = _step1ViewModelMock.Object.FilesLimitTypes.Single(x => x.ID == 2);
+            _step1ViewModelMock.Object.SelectedFilesLimit = _step1ViewModelMock.Object.FilesLimitTypes.Single(x => x.ID == (int)LimitType.FilesNumber);
             _step1ViewModelMock.SetupGet(x => x.FilesNumber).Returns(filesNumberLimitSettingsMock.Object);
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.FilesNumberLimit).Callback((value) =>
-            {
-                if (value == filesNumberLimitSettingsMock.Object.Number)
-                {
-                    _valueIsSet = true;
-                }
-            });
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.FilesNumberLimit);
 
             _step1ViewModelMock.Object.UpdateGlobalModel();
 
-            Assert.IsTrue(_valueIsSet);
+            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.FilesNumberLimit = 100, Times.Once());
         }
 
         [Test]
         public void UpdateGlobalModel_FilesNumberLimit_MustNotSetValueOnGlobalModelIfSelectedFilesLimitDoesNotEqualTwo()
         {
             _step1ViewModelMock.SetupGet(x => x.SelectedFilesLimit).Returns(new Limit());
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.FilesNumberLimit).Verifiable();
+            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.FilesNumberLimit = It.IsAny<int>()).Verifiable();
 
             _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.FilesNumberLimit = It.IsAny<int>(), Times.Never);
         }
@@ -352,29 +314,21 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         {
             Mock<FilesAndFoldersLimitSettings> filesAndFoldersLimitSettingsMock = new Mock<FilesAndFoldersLimitSettings>();
             filesAndFoldersLimitSettingsMock.SetupGet(x => x.FilesNumber).Returns(100);
-
-            bool _valueIsSet = false;
-
-            _step1ViewModelMock.Object.SelectedFilesLimit = _step1ViewModelMock.Object.FilesLimitTypes.Single(x => x.ID == 3);
+            _step1ViewModelMock.Object.SelectedFilesLimit = _step1ViewModelMock.Object.FilesLimitTypes.Single(x => x.ID == (int)LimitType.FilesNumberPerFolder);
             _step1ViewModelMock.SetupGet(x => x.FilesAndFolders).Returns(filesAndFoldersLimitSettingsMock.Object);
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.FilesNumberPerFolderLimit).Callback((value) =>
-            {
-                if (value == filesAndFoldersLimitSettingsMock.Object.FilesNumber)
-                {
-                    _valueIsSet = true;
-                }
-            });
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.SelectedLimit);
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.FilesNumberPerFolderLimit);
 
             _step1ViewModelMock.Object.UpdateGlobalModel();
 
-            Assert.IsTrue(_valueIsSet);
+            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.FilesNumberPerFolderLimit = 100, Times.Once());
         }
 
         [Test]
         public void UpdateGlobalModel_FilesInFolderNumberLimit_MustNotSetValueOnGlobalModelIfSelectedFilesLimitDoesNotEqualThree()
         {
             _step1ViewModelMock.SetupGet(x => x.SelectedFilesLimit).Returns(new Limit());
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.FilesNumberPerFolderLimit).Verifiable();
+            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.FilesNumberPerFolderLimit = It.IsAny<int>()).Verifiable();
 
             _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.FilesNumberPerFolderLimit = It.IsAny<int>(), Times.Never);
         }
@@ -384,29 +338,21 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         {
             Mock<FilesAndFoldersLimitSettings> filesAndFoldersLimitSettingsMock = new Mock<FilesAndFoldersLimitSettings>();
             filesAndFoldersLimitSettingsMock.SetupGet(x => x.FoldersNumber).Returns(100);
-
-            bool _valueIsSet = false;
-
-            _step1ViewModelMock.Object.SelectedFilesLimit = _step1ViewModelMock.Object.FilesLimitTypes.Single(x => x.ID == 3);
+            _step1ViewModelMock.Object.SelectedFilesLimit = _step1ViewModelMock.Object.FilesLimitTypes.Single(x => x.ID == (int)LimitType.FilesNumberPerFolder);
             _step1ViewModelMock.SetupGet(x => x.FilesAndFolders).Returns(filesAndFoldersLimitSettingsMock.Object);
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.FoldersNumberLimit).Callback((value) =>
-            {
-                if (value == filesAndFoldersLimitSettingsMock.Object.FoldersNumber)
-                {
-                    _valueIsSet = true;
-                }
-            });
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.SelectedLimit);
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.FoldersNumberLimit);
 
             _step1ViewModelMock.Object.UpdateGlobalModel();
 
-            Assert.IsTrue(_valueIsSet);
+            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.FoldersNumberLimit = 100, Times.Once());
         }
 
         [Test]
         public void UpdateGlobalModel_FoldersNumberLimit_MustNotSetValueOnGlobalModelIfSelectedFilesLimitDoesNotEqualThree()
         {
             _step1ViewModelMock.SetupGet(x => x.SelectedFilesLimit).Returns(new Limit());
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.FoldersNumberLimit).Verifiable();
+            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.FoldersNumberLimit = It.IsAny<int>()).Verifiable();
 
             _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.FoldersNumberLimit = It.IsAny<int>(), Times.Never);
         }

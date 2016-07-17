@@ -6,3 +6,4 @@ FileRandomizer3000.Tests/obj/Release/FileRandomizer3000.Tests.csproj.FileListAbs
 FileRandomizer3000.WinForms/bin/
 packages/
 .nuget/
+FileRandomizer3000.Tests/obj/

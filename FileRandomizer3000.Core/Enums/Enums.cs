@@ -22,9 +22,9 @@
 
     public enum LimitType
     {
-        FilesTotalSize,
-        FilesNumber,
-        FilesNumberPerFolder
+        FilesTotalSize = 0,
+        FilesNumber = 1,
+        FilesNumberPerFolder = 2
     }
 
     public enum SortOrder

@@ -33,13 +33,13 @@ namespace FileRandomizer3000.Core.Infrastructure
             return this;
         }
 
-        public IApplicationController RegisterInstance<TImplementation>(TImplementation instance)
+        public IApplicationController RegisterInstance<TImplementation>(TImplementation instance) where TImplementation : class
         {
             _container.RegisterInstance(instance);
             return this;
         }
 
-        public IApplicationController RegisterSingletonInstance<TImplementation>(TImplementation instance)
+        public IApplicationController RegisterSingletonInstance<TImplementation>(TImplementation instance) where TImplementation : class
         {
             _container.RegisterSingletonInstance(instance);
             return this;
