@@ -1,20 +1,33 @@
-# FileRandomizer3000
-This is a handy tool to randomize files and copy them to a destination folder.
+[![Build Status](https://travis-ci.org/desperate-man/FileRandomizer3000.svg?branch=master)](https://travis-ci.org/desperate-man/FileRandomizer3000)
 
-This tool is awesome for randomization of mp3 files, which are the only files currently supported.
-You can randomize MP3 files for an MP3 player, smartphone or Digital Music Changer in your car, such as Yatour and similar devices.
+A tool for randomizing MP3 files and transferring them to a destination folder. Useful for MP3 players, smartphones or Digital Music Changer in your car, such as Yatour and similar devices.
 
-# What the application can do
-1. Supply single source folder;
-2. Find unique or non-unique files.
-3. Find files only inside selected folder or inside its nested folders as well.
-4. Limit files by:
+## Features
+* Supply single source folder;
+* Find unique or non-unique files;
+* Find files only inside selected folder or inside its nested folders;
+* Limit files by:
   * total size;
   * number;
-  * number per each folder.
-5. Randomized folders may be renamed to keep their naming random in the destination folder.
-6. Randomized files can be compared to the existing files in the destination folder and you can have several options on what should be done with such files when they are encountered:
+  * number per each folder;
+* Randomized files can be renamed to keep their naming random in the destination folder;
+* Randomized files can be compared to the existing files in the destination folder and you can have several options on what should be done with such files when they are encountered:
   * Skip
   * Overwrite
   * Add prefix or suffix
-7. Randomized files can be sorted by their name in ascending or descending order.
+* Randomized files can be sorted by their name in ascending or descending order.
+* Each step of the wizard can be memorized;
+
+## To do
+* Multiple source folders;
+* Compare files by:
+  * ~~file name~~;
+  * ID3 tags;
+* Preview of randomized files;
+* Information after the copy has completed;
+
+## Technology
+C#, .NET 4.5.2, WinForms + MVP pattern.
+
+## Requirements
+.NET >=4.5.2

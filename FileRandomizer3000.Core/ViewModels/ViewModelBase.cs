@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace FileRandomizer3000.Core.ViewModels
 {
-    public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         /// <summary>
         /// Returns the user-friendly name of this object.
@@ -40,23 +40,6 @@ namespace FileRandomizer3000.Core.ViewModels
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
-        }
-
-        /// <summary>
-        /// Invoked when this object is being removed from the application
-        /// and will be subject to garbage collection.
-        /// </summary>
-        public void Dispose()
-        {
-            this.OnDispose();
-        }
-
-        /// <summary>
-        /// Child classes can override this method to perform
-        /// clean-up logic, such as removing event handlers.
-        /// </summary>
-        protected virtual void OnDispose()
-        {
         }
     }
 }

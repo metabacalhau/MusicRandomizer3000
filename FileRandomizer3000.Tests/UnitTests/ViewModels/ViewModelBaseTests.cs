@@ -44,30 +44,6 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
                     }
                 }
             }
-
-            private bool disposed;
-            public bool Disposed
-            {
-                get
-                {
-                    if (!this.disposed)
-                    {
-                        return this.disposed;
-                    }
-
-                    throw new ObjectDisposedException("CanBeDisposed");
-                }
-            }
-
-            protected override void OnDispose()
-            {
-                base.OnDispose();
-
-                if (!this.disposed)
-                {
-                    this.disposed = true;
-                }
-            }
         }
 
         [TestCase("foo", "bar", "bar")]
@@ -149,37 +125,6 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             // assert
             Assert.AreEqual(0, receivedEvents.Count);
-        }
-
-        [Test]
-        public void Dispose_InvokesOnDisposeMethod()
-        {
-            Mock<ViewModelBase> sut = new Mock<ViewModelBase>();
-
-            sut.Protected().Setup("OnDispose");
-
-            sut.Object.Dispose();
-
-            sut.Protected().Verify("OnDispose", Times.Once());
-        }
-
-        [Test]
-        public void Dispose_InvokesOverridenOnDisposeMethod_MarksInstanceAsDisposed()
-        {
-            TestClass sut = null;
-
-            using (sut = new TestClass())
-            {
-            }
-
-            try
-            {
-                Assert.IsTrue(sut.Disposed);
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is ObjectDisposedException); // Better be the right one.
-            }
         }
     }
 }
