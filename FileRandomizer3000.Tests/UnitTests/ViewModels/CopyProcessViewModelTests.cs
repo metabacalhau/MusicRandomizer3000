@@ -220,7 +220,7 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             bool _valueIsSet = false;
 
-            _globalWizardViewModelMock.SetupSet(x => x.FormTitle).Callback((value) =>
+            _globalWizardViewModelMock.SetupSet(x => x.FormTitle = It.IsAny<string>()).Callback<string>(value =>
             {
                 if (value == formTitleValue)
                 {
@@ -240,16 +240,6 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             Assert.AreEqual(_globalWizardViewModelMock.Object.CopyWorkerSettings, _step5ViewModelMock.Object.Settings);
         }
-
-
-
-
-
-
-
-
-
-
 
         [Test]
         public void ShowCopiedFilesButtonText_ReturnsSetValue()

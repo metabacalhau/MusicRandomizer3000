@@ -51,9 +51,8 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         {
             Step1Settings savedSettings = new Step1Settings
             {
-                PathFrom = "TestPathFrom",
+                PathsFrom = new string [] { "TestPathFrom" },
                 SelectedFilesLimitID = 1,
-                UseRecursiveSearch = true,
                 SaveSettings = true,
                 SelectedSizeID = 5,
                 FindOnlyUniqueFiles = true,
@@ -81,10 +80,9 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
             _step1ViewModelMock.Setup(x => x.GetFilesNumberLimitSettings(savedSettings)).Returns(filesNumberLimitSettingsMock.Object);
             _step1ViewModelMock.Setup(x => x.GetFilesAndFoldersLimitSettings(savedSettings)).Returns(filesAndFoldersLimitSettingsMock.Object);
 
-            Assert.AreEqual(savedSettings.PathFrom, _step1ViewModelMock.Object.PathFrom);
+            Assert.AreEqual(savedSettings.PathsFrom, _step1ViewModelMock.Object.PathsFrom);
             Assert.AreEqual(_step1ViewModelMock.Object.FilesLimitTypes[1], _step1ViewModelMock.Object.SelectedFilesLimit);
             Assert.AreEqual(savedSettings.FindOnlyUniqueFiles, _step1ViewModelMock.Object.FindOnlyUniqueFiles);
-            Assert.AreEqual(savedSettings.UseRecursiveSearch, _step1ViewModelMock.Object.UseRecursiveSearch);
             Assert.AreEqual(savedSettings.SaveSettings, _step1ViewModelMock.Object.SaveSettings);
             Assert.AreEqual(filesSizeLimitSettingsMock.Object, _step1ViewModelMock.Object.FilesSize);
             Assert.AreEqual(filesNumberLimitSettingsMock.Object, _step1ViewModelMock.Object.FilesNumber);
@@ -109,10 +107,9 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
             _step1ViewModelMock.Setup(x => x.GetFilesNumberLimitSettings(null)).Returns(filesNumberLimitSettingsMock.Object);
             _step1ViewModelMock.Setup(x => x.GetFilesAndFoldersLimitSettings(null)).Returns(filesAndFoldersLimitSettingsMock.Object);
 
-            Assert.AreEqual("", _step1ViewModelMock.Object.PathFrom);
+            Assert.AreEqual("", _step1ViewModelMock.Object.PathsFrom);
             Assert.AreEqual(_step1ViewModelMock.Object.FilesLimitTypes.First(), _step1ViewModelMock.Object.SelectedFilesLimit);
             Assert.AreEqual(true, _step1ViewModelMock.Object.FindOnlyUniqueFiles);
-            Assert.AreEqual(true, _step1ViewModelMock.Object.UseRecursiveSearch);
             Assert.AreEqual(false, _step1ViewModelMock.Object.SaveSettings);
             Assert.AreEqual(filesSizeLimitSettingsMock.Object, _step1ViewModelMock.Object.FilesSize);
             Assert.AreEqual(filesNumberLimitSettingsMock.Object, _step1ViewModelMock.Object.FilesNumber);
@@ -123,18 +120,18 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         public void PathFrom_PropertyChanged_FiresPropertyChangedValue()
         {
             _step1ViewModelMock.Setup(a => a.Initialize());
-            _step1ViewModelMock.Object.PathFrom = "111111";
+            _step1ViewModelMock.Object.PathsFrom = new string[] { "111111" };
 
-            _step1ViewModelMock.Object.ShouldNotifyOn(a => a.PathFrom).When(a => a.PathFrom = "vdfgfdgfdg");
+            _step1ViewModelMock.Object.ShouldNotifyOn(a => a.PathsFrom).When(a => a.PathsFrom = new string[] { "vdfgfdgfdg" });
         }
 
         [Test]
         public void PathFrom_PropertyDidNotChange_DoesNotFirePropertyChangedValue()
         {
             _step1ViewModelMock.Setup(a => a.Initialize());
-            _step1ViewModelMock.Object.PathFrom = "vdfgfdgfdg";
+            _step1ViewModelMock.Object.PathsFrom = new string[] { "vdfgfdgfdg" };
 
-            _step1ViewModelMock.Object.ShouldNotNotifyOn(a => a.PathFrom).When(a => a.PathFrom = "vdfgfdgfdg");
+            _step1ViewModelMock.Object.ShouldNotNotifyOn(a => a.PathsFrom).When(a => a.PathsFrom = _step1ViewModelMock.Object.PathsFrom);
         }
 
         [Test]
@@ -171,24 +168,6 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
             _step1ViewModelMock.Object.FindOnlyUniqueFiles = false;
 
             _step1ViewModelMock.Object.ShouldNotNotifyOn(a => a.FindOnlyUniqueFiles).When(a => a.FindOnlyUniqueFiles = false);
-        }
-
-        [Test]
-        public void UseRecursiveSearch_PropertyChanged_FiresPropertyChangedValue()
-        {
-            _step1ViewModelMock.Setup(a => a.Initialize());
-            _step1ViewModelMock.Object.UseRecursiveSearch = false;
-
-            _step1ViewModelMock.Object.ShouldNotifyOn(a => a.UseRecursiveSearch).When(a => a.UseRecursiveSearch = true);
-        }
-
-        [Test]
-        public void UseRecursiveSearch_PropertyDidNotChange_DoesNotFirePropertyChangedValue()
-        {
-            _step1ViewModelMock.Setup(a => a.Initialize());
-            _step1ViewModelMock.Object.UseRecursiveSearch = false;
-
-            _step1ViewModelMock.Object.ShouldNotNotifyOn(a => a.UseRecursiveSearch).When(a => a.UseRecursiveSearch = false);
         }
 
         [Test]
@@ -242,25 +221,14 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         }
 
         [Test]
-        public void UpdateGlobalModel_UseRecursiveSearch_MustSetValueOnGlobalModel()
-        {
-            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.UseRecursiveSearch);
-            _step1ViewModelMock.Object.UseRecursiveSearch = true;
-
-            _step1ViewModelMock.Object.UpdateGlobalModel();
-
-            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.UseRecursiveSearch = _step1ViewModelMock.Object.UseRecursiveSearch, Times.Once());
-        }
-
-        [Test]
         public void UpdateGlobalModel_PathFrom_MustSetValueOnGlobalModel()
         {
-            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.PathFrom);
-            _step1ViewModelMock.Object.PathFrom = "value";
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.PathsFrom);
+            _step1ViewModelMock.Object.PathsFrom = new string[] { "value" };
 
             _step1ViewModelMock.Object.UpdateGlobalModel();
 
-            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.PathFrom = _step1ViewModelMock.Object.PathFrom, Times.Once());
+            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.PathsFrom = _step1ViewModelMock.Object.PathsFrom, Times.Once());
         }
 
         [Test]

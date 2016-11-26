@@ -43,18 +43,50 @@ namespace FileRandomizer3000.Core.ViewModels
             }
         }
 
-        private string _pathFrom;
-        public virtual string PathFrom
+        private string _pathsFromLabel;
+        public virtual string PathsFromLabel
         {
             get
             {
-                return _pathFrom;
+                return _pathsFromLabel;
             }
             set
             {
-                if (CheckPropertyChanged<string>("PathFrom", ref _pathFrom, ref value))
+                if (CheckPropertyChanged<string>("PathsFromLabel", ref _pathsFromLabel, ref value))
                 {
-                    FirePropertyChanged("PathFrom");
+                    FirePropertyChanged("PathsFromLabel");
+                }
+            }
+        }
+
+        private bool _pathsFromLabelVisible;
+        public virtual bool PathsFromLabelVisible
+        {
+            get
+            {
+                return _pathsFromLabelVisible;
+            }
+            set
+            {
+                if (CheckPropertyChanged<bool>("PathsFromLabelVisible", ref _pathsFromLabelVisible, ref value))
+                {
+                    FirePropertyChanged("PathsFromLabelVisible");
+                }
+            }
+        }
+
+        private string[] _pathsFrom;
+        public virtual string[] PathsFrom
+        {
+            get
+            {
+                return _pathsFrom;
+            }
+            set
+            {
+                if (CheckPropertyChanged<string[]>("PathsFrom", ref _pathsFrom, ref value))
+                {
+                    FirePropertyChanged("PathsFrom");
                 }
             }
         }
@@ -87,22 +119,6 @@ namespace FileRandomizer3000.Core.ViewModels
                 if (CheckPropertyChanged<bool>("FindOnlyUniqueFiles", ref _findOnlyUniqueFiles, ref value))
                 {
                     FirePropertyChanged("FindOnlyUniqueFiles");
-                }
-            }
-        }
-
-        private bool _useRecursiveSearch;
-        public virtual bool UseRecursiveSearch
-        {
-            get
-            {
-                return _useRecursiveSearch;
-            }
-            set
-            {
-                if (CheckPropertyChanged<bool>("UseRecursiveSearch", ref _useRecursiveSearch, ref value))
-                {
-                    FirePropertyChanged("UseRecursiveSearch");
                 }
             }
         }
@@ -176,8 +192,7 @@ namespace FileRandomizer3000.Core.ViewModels
         public virtual void UpdateGlobalModel()
         {
             _globalModel.RandomizerWorkerSettings.FindOnlyUniqueFiles = FindOnlyUniqueFiles;
-            _globalModel.RandomizerWorkerSettings.UseRecursiveSearch = UseRecursiveSearch;
-            _globalModel.RandomizerWorkerSettings.PathFrom = PathFrom;
+            _globalModel.RandomizerWorkerSettings.PathsFrom = PathsFrom;
             _globalModel.RandomizerWorkerSettings.SelectedLimit = (LimitType)SelectedFilesLimit.ID;
             _globalModel.CopyWorkerSettings.SelectedLimit = (LimitType)SelectedFilesLimit.ID;
 
@@ -205,12 +220,11 @@ namespace FileRandomizer3000.Core.ViewModels
                 Step1Settings settings = new Step1Settings
                 {
                     FindOnlyUniqueFiles = FindOnlyUniqueFiles,
-                    PathFrom = PathFrom,
+                    PathsFrom = PathsFrom,
                     SelectedFilesLimitID = SelectedFilesLimit != null ? SelectedFilesLimit.ID : (int?)null,
                     SelectedSizeID = FilesSize.SelectedSize != null ? FilesSize.SelectedSize.ID : (int?)null,
                     SizeLimit = FilesSize.SizeLimit,
                     FilesNumber = FilesNumber.Number,
-                    UseRecursiveSearch = UseRecursiveSearch,
                     FilesInFolderNumber = FilesAndFolders.FilesNumber,
                     FoldersNumber = FilesAndFolders.FoldersNumber,
                     SaveSettings = SaveSettings
@@ -230,7 +244,7 @@ namespace FileRandomizer3000.Core.ViewModels
 
             if (settings != null && settings.SaveSettings)
             {
-                _pathFrom = settings.PathFrom;
+                _pathsFrom = settings.PathsFrom;
                 _selectedFilesLimit = FilesLimitTypes.SingleOrDefault(x => x.ID == settings.SelectedFilesLimitID);
 
                 if (_selectedFilesLimit == null)
@@ -239,7 +253,6 @@ namespace FileRandomizer3000.Core.ViewModels
                 }
 
                 _findOnlyUniqueFiles = settings.FindOnlyUniqueFiles;
-                _useRecursiveSearch = settings.UseRecursiveSearch;
                 _saveSettings = settings.SaveSettings;
                 FilesSize = GetFilesSizeLimitSettings(settings);
                 FilesNumber = GetFilesNumberLimitSettings(settings);
@@ -247,10 +260,9 @@ namespace FileRandomizer3000.Core.ViewModels
             }
             else
             {
-                _pathFrom = "";
+                _pathsFrom = new string[] { };
                 _selectedFilesLimit = FilesLimitTypes.First();
                 _findOnlyUniqueFiles = true;
-                _useRecursiveSearch = true;
                 _saveSettings = false;
                 FilesSize = GetFilesSizeLimitSettings();
                 FilesNumber = GetFilesNumberLimitSettings();

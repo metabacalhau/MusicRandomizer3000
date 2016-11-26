@@ -185,7 +185,7 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             bool _valueIsSet = false;
 
-            _globalWizardViewModelMock.SetupSet(x => x.FormTitle).Callback((value) =>
+            _globalWizardViewModelMock.SetupSet(x => x.FormTitle = It.IsAny<string>()).Callback<string>(value =>
             {
                 if (value == formTitleValue)
                 {
@@ -205,13 +205,15 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             _step2ViewModelMock.Object.PathTo = "value";
             _globalWizardViewModelMock.SetupGet(x => x.CopyWorkerSettings).Returns(new CopyWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.PathTo).Callback((value) =>
-            {
-                if (value == _step2ViewModelMock.Object.PathTo)
+            _globalWizardViewModelMock
+                .SetupSet(x => x.RandomizerWorkerSettings.PathTo = It.IsAny<string>())
+                .Callback<string>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == _step2ViewModelMock.Object.PathTo)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step2ViewModelMock.Object.UpdateGlobalModel();
 
@@ -224,14 +226,16 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
             bool _valueIsSet = false;
 
             _step2ViewModelMock.Object.PathTo = "value";
+
             _globalWizardViewModelMock.SetupGet(x => x.RandomizerWorkerSettings).Returns(new RandomizerWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.PathTo).Callback((value) =>
-            {
-                if (value == _step2ViewModelMock.Object.PathTo)
+            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.PathTo = It.IsAny<string>())
+                .Callback<string>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == _step2ViewModelMock.Object.PathTo)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step2ViewModelMock.Object.UpdateGlobalModel();
 
@@ -245,13 +249,14 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             _step2ViewModelMock.Object.Initialize();
             _globalWizardViewModelMock.SetupGet(x => x.RandomizerWorkerSettings).Returns(new RandomizerWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.CharsPositionOnCopy).Callback((value) =>
-            {
-                if (value == (UniqueCharsPosition)_step2ViewModelMock.Object.SelectedOnCopyOption.ID)
+            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.CharsPositionOnCopy = It.IsAny<UniqueCharsPosition>())
+                .Callback<UniqueCharsPosition>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == (UniqueCharsPosition)_step2ViewModelMock.Object.SelectedOnCopyOption.ID)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step2ViewModelMock.Object.UpdateGlobalModel();
 

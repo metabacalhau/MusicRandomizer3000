@@ -22,28 +22,30 @@ namespace FileRandomizer3000.Core.Presenters
 
         public override void Run()
         {
-            View.OnActiveViewChanged += (oldActiveView, newActiveView) =>
-            {
-                if (newActiveView == null) throw new ArgumentNullException("newActiveView");
+            View.OnActiveViewChanged += ChangeActiveView;
 
-                if (View.Views == null || !View.Views.Any(x => x.GetType() == newActiveView.GetType()))
-                {
-                    View.AddView(newActiveView);
-                }
-
-                newActiveView.Show();
-
-                if (oldActiveView != null)
-                {
-                    oldActiveView.Close();
-                }
-            };
-
-            Controller.RegisterInstance<SynchronizationContext>(SynchronizationContext.Current);
+            Controller.RegisterInstance(SynchronizationContext.Current);
 
             Controller.RunSingleton<Step1Presenter>();
 
             View.Initialize(_model);
+        }
+
+        private void ChangeActiveView(IView oldActiveView, IView newActiveView)
+        {
+            if (newActiveView == null) throw new ArgumentNullException("newActiveView");
+
+            if (View.Views == null || !View.Views.Any(x => x.GetType() == newActiveView.GetType()))
+            {
+                View.AddView(newActiveView);
+            }
+
+            newActiveView.Show();
+
+            if (oldActiveView != null)
+            {
+                oldActiveView.Close();
+            }
         }
     }
 }

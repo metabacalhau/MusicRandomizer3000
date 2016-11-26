@@ -206,7 +206,9 @@ namespace FileRandomizer3000.Tests.UnitTests.Services
         public void Run_BackgroundWorkerMustSupportProgressReport()
         {
             // arrange
-            _backgroundWorkerMock.SetupSet(x => x.WorkerReportsProgress).Callback(x => Assert.IsTrue(x));
+            _backgroundWorkerMock
+                .SetupSet(x => x.WorkerReportsProgress = It.IsAny<bool>())
+                .Callback<bool>(x => Assert.IsTrue(x));
 
             // act
             _worker.Run(_parameters);
@@ -216,7 +218,9 @@ namespace FileRandomizer3000.Tests.UnitTests.Services
         public void Run_BackgroundWorkerMustSupportCancellation()
         {
             // arrange
-            _backgroundWorkerMock.SetupSet(x => x.WorkerSupportsCancellation).Callback(x => Assert.IsTrue(x));
+            _backgroundWorkerMock
+                .SetupSet(x => x.WorkerSupportsCancellation = It.IsAny<bool>())
+                .Callback<bool>(x => Assert.IsTrue(x));
 
             // act
             _worker.Run(_parameters);

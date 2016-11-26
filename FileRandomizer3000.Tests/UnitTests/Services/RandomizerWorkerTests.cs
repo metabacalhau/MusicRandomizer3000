@@ -300,18 +300,17 @@ namespace FileRandomizer3000.Tests.UnitTests.Services
         }
 
         [Test]
-        public void Run_SupplySettingsUseRecursiveSearch_ExecutesTraverseFunctionAndReturnsFilesFromSourceFolder()
+        public void Run_ExecutesTraverseFunctionAndReturnsFilesFromSourceFolder()
         {
             // arrange
             _settings = new RandomizerWorkerSettings
             {
-                UseRecursiveSearch = true,
-                PathFrom = "path from"
+                PathsFrom = new string[] { "path from" }
             };
 
             FileEnumerationStub stub = new FileEnumerationStub(_backgroundWorkerMock);
 
-            _traverseServiceMock.Setup(x => x.TraverseFolder(_settings.PathFrom)).Returns(stub.GetFiles);
+            _settings.PathsFrom.ToList().ForEach(x => _traverseServiceMock.Setup(y => y.TraverseFolder(x)).Returns(stub.GetFiles));
 
             // act
             _worker.Run(_settings, (x) => { }, (y) => { }, () => { });
@@ -323,64 +322,17 @@ namespace FileRandomizer3000.Tests.UnitTests.Services
         }
 
         [Test]
-        public void Run_SupplySettingsUseRecursiveSearchAndCancellationPending_WorkerStopsAfterThirdFileAndDoesntContinueTraverseFiles()
+        public void Run_CancellationPending_WorkerStopsAfterThirdFileAndDoesntContinueTraverseFiles()
         {
             // arrange
             _settings = new RandomizerWorkerSettings
             {
-                UseRecursiveSearch = true,
-                PathFrom = "path from"
+                PathsFrom = new string[] { "path from" }
             };
 
             FileEnumerationStub stub = new FileEnumerationStub(_backgroundWorkerMock);
 
-            _traverseServiceMock.Setup(x => x.TraverseFolder(_settings.PathFrom)).Returns(stub.GetFilesWithCancelCallback);
-
-            // act
-            _worker.Run(_settings, (x) => { }, (y) => { }, () => { });
-
-            _backgroundWorkerMock.Raise(x => { x.OnDoWork += null; }, null, new System.ComponentModel.DoWorkEventArgs(null));
-
-            // assert
-            Assert.That(stub.filesCalledIndex, Is.EqualTo(3));
-        }
-
-        [Test]
-        public void Run_SupplySettingNonRecursiveSearch_ReturnsFilesFromSourceFolder()
-        {
-            // arrange
-            _settings = new RandomizerWorkerSettings
-            {
-                UseRecursiveSearch = false,
-                PathFrom = "path from"
-            };
-
-            FileEnumerationStub stub = new FileEnumerationStub(_backgroundWorkerMock);
-
-            _fileServiceMock.Setup(x => x.GetFiles(_settings.PathFrom)).Returns(stub.GetFiles);
-
-            // act
-            _worker.Run(_settings, (x) => { }, (y) => { }, () => { });
-
-            _backgroundWorkerMock.Raise(x => { x.OnDoWork += null; }, null, new System.ComponentModel.DoWorkEventArgs(null));
-
-            // assert
-            Assert.That(stub.filesCalledIndex, Is.EqualTo(5));
-        }
-
-        [Test]
-        public void Run_SupplySettingNonRecursiveSearch_WorkerStopsAfterThirdFileAndDoesntContinueIteratingFiles()
-        {
-            // arrange
-            _settings = new RandomizerWorkerSettings
-            {
-                UseRecursiveSearch = false,
-                PathFrom = "path from"
-            };
-
-            FileEnumerationStub stub = new FileEnumerationStub(_backgroundWorkerMock);
-
-            _fileServiceMock.Setup(x => x.GetFiles(_settings.PathFrom)).Returns(stub.GetFilesWithCancelCallback);
+            _settings.PathsFrom.ToList().ForEach(x => _traverseServiceMock.Setup(y => y.TraverseFolder(x)).Returns(stub.GetFilesWithCancelCallback));
 
             // act
             _worker.Run(_settings, (x) => { }, (y) => { }, () => { });
@@ -582,7 +534,9 @@ namespace FileRandomizer3000.Tests.UnitTests.Services
         public void Run_BackgroundWorkerMustSupportCancellation()
         {
             // arrange
-            _backgroundWorkerMock.SetupSet(x => x.WorkerSupportsCancellation).Callback(x => Assert.IsTrue(x));
+            _backgroundWorkerMock
+                .SetupSet(x => x.WorkerSupportsCancellation = It.IsAny<bool>())
+                .Callback<bool>(x => Assert.IsTrue(x));
 
             // act
             _worker.Run(new RandomizerWorkerSettings(), (x) => { }, (y) => { }, () => { });

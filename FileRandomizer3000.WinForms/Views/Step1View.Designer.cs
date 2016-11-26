@@ -52,12 +52,9 @@ namespace FileRandomizer3000.WinForms.Views
             this.label2 = new System.Windows.Forms.Label();
             this.cbxSaveSettings = new System.Windows.Forms.CheckBox();
             this.btnNextStep1 = new System.Windows.Forms.Button();
-            this.cbxUseRecursiveSearch = new System.Windows.Forms.CheckBox();
             this.cbxFindOnlyUniqueFiles = new System.Windows.Forms.CheckBox();
-            this.tbxPathFrom = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
             this.pnlByFolders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numFiles)).BeginInit();
@@ -78,9 +75,7 @@ namespace FileRandomizer3000.WinForms.Views
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cbxSaveSettings);
             this.panel1.Controls.Add(this.btnNextStep1);
-            this.panel1.Controls.Add(this.cbxUseRecursiveSearch);
             this.panel1.Controls.Add(this.cbxFindOnlyUniqueFiles);
-            this.panel1.Controls.Add(this.tbxPathFrom);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -98,7 +93,7 @@ namespace FileRandomizer3000.WinForms.Views
             this.pnlByFolders.Controls.Add(this.label4);
             this.pnlByFolders.Controls.Add(this.label5);
             this.pnlByFolders.Controls.Add(this.label6);
-            this.pnlByFolders.Location = new System.Drawing.Point(26, 32);
+            this.pnlByFolders.Location = new System.Drawing.Point(26, 31);
             this.pnlByFolders.Name = "pnlByFolders";
             this.pnlByFolders.Size = new System.Drawing.Size(340, 35);
             this.pnlByFolders.TabIndex = 56;
@@ -172,7 +167,7 @@ namespace FileRandomizer3000.WinForms.Views
             this.btnSelectPathFrom.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSelectPathFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnSelectPathFrom.Image = global::FileRandomizer3000.WinForms.Properties.Resources.folder;
-            this.btnSelectPathFrom.Location = new System.Drawing.Point(372, 32);
+            this.btnSelectPathFrom.Location = new System.Drawing.Point(231, 9);
             this.btnSelectPathFrom.Name = "btnSelectPathFrom";
             this.btnSelectPathFrom.Size = new System.Drawing.Size(28, 23);
             this.btnSelectPathFrom.TabIndex = 43;
@@ -302,17 +297,6 @@ namespace FileRandomizer3000.WinForms.Views
             this.btnNextStep1.Text = "Next Step";
             this.btnNextStep1.UseVisualStyleBackColor = true;
             // 
-            // cbxUseRecursiveSearch
-            // 
-            this.cbxUseRecursiveSearch.AutoSize = true;
-            this.cbxUseRecursiveSearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cbxUseRecursiveSearch.Location = new System.Drawing.Point(5, 82);
-            this.cbxUseRecursiveSearch.Name = "cbxUseRecursiveSearch";
-            this.cbxUseRecursiveSearch.Size = new System.Drawing.Size(202, 20);
-            this.cbxUseRecursiveSearch.TabIndex = 4;
-            this.cbxUseRecursiveSearch.Text = "Get files inside nested folders";
-            this.cbxUseRecursiveSearch.UseVisualStyleBackColor = true;
-            // 
             // cbxFindOnlyUniqueFiles
             // 
             this.cbxFindOnlyUniqueFiles.AutoSize = true;
@@ -323,13 +307,6 @@ namespace FileRandomizer3000.WinForms.Views
             this.cbxFindOnlyUniqueFiles.TabIndex = 28;
             this.cbxFindOnlyUniqueFiles.Text = "Random files must be unique";
             this.cbxFindOnlyUniqueFiles.UseVisualStyleBackColor = true;
-            // 
-            // tbxPathFrom
-            // 
-            this.tbxPathFrom.Location = new System.Drawing.Point(4, 32);
-            this.tbxPathFrom.Name = "tbxPathFrom";
-            this.tbxPathFrom.Size = new System.Drawing.Size(362, 22);
-            this.tbxPathFrom.TabIndex = 5;
             // 
             // label1
             // 
@@ -367,12 +344,9 @@ namespace FileRandomizer3000.WinForms.Views
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnNextStep1;
-        private System.Windows.Forms.CheckBox cbxUseRecursiveSearch;
         private System.Windows.Forms.CheckBox cbxFindOnlyUniqueFiles;
-        private System.Windows.Forms.TextBox tbxPathFrom;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolTip tooltip;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.CheckBox cbxSaveSettings;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel pnlByTotalSize;

@@ -40,7 +40,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
@@ -51,7 +52,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -68,6 +70,12 @@
   <ItemGroup>
     <Compile Include="Controls\BindableComboBox.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\FolderBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FolderBrowser.Designer.cs">
+      <DependentUpon>FolderBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Step1View.cs">
       <SubType>UserControl</SubType>
@@ -110,6 +118,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Views\FolderBrowser.resx">
+      <DependentUpon>FolderBrowser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Step1View.resx">
       <DependentUpon>Step1View.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,6 +190,14 @@
     <ProjectReference Include="..\FileRandomizer3000.Core\FileRandomizer3000.Core.csproj">
       <Project>{05865A40-7DCF-44B7-81DE-72CCBC16FA28}</Project>
       <Name>FileRandomizer3000.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raccoom.TreeViewFolderBrowser.DataProviders\Raccoom.TreeViewFolderBrowser.DataProviders.csproj">
+      <Project>{e4eaa4da-8de8-41e3-baff-b516e9789d34}</Project>
+      <Name>Raccoom.TreeViewFolderBrowser.DataProviders</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Raccoom.TreeViewFolderBrowser\Raccoom.TreeViewFolderBrowser.csproj">
+      <Project>{98e88a55-daac-4a09-b39a-9c0167976ad5}</Project>
+      <Name>Raccoom.TreeViewFolderBrowser</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

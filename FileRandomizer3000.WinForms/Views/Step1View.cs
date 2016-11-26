@@ -26,9 +26,7 @@ namespace FileRandomizer3000.WinForms.Views
 
             InitializeComponent();
 
-            tbxPathFrom.DataBindings.Add("Text", Model, "PathFrom", false, DataSourceUpdateMode.OnPropertyChanged);
             cbxFindOnlyUniqueFiles.DataBindings.Add("Checked", Model, "FindOnlyUniqueFiles", false, DataSourceUpdateMode.OnPropertyChanged);
-            cbxUseRecursiveSearch.DataBindings.Add("Checked", Model, "UseRecursiveSearch", false, DataSourceUpdateMode.OnPropertyChanged);
             cbxSaveSettings.DataBindings.Add("Checked", Model, "SaveSettings", false, DataSourceUpdateMode.OnPropertyChanged);
             cmbFilesLimitTypes.DisplayMember = "Title";
             cmbFilesLimitTypes.DataSource = Model.FilesLimitTypes;
@@ -52,16 +50,7 @@ namespace FileRandomizer3000.WinForms.Views
             numFiles.DataBindings.Add("Minimum", Model.FilesAndFolders, "FilesNumberMinimum", false, DataSourceUpdateMode.OnPropertyChanged);
             numFiles.DataBindings.Add("Maximum", Model.FilesAndFolders, "FilesNumberMaximum", false, DataSourceUpdateMode.OnPropertyChanged);
 
-            btnSelectPathFrom.Click += delegate
-            {
-                DialogResult result = folderBrowserDialog.ShowDialog();
-
-                if (result == DialogResult.OK)
-                {
-                    Model.PathFrom = folderBrowserDialog.SelectedPath;
-                }
-            };
-
+            btnSelectPathFrom.Click += delegate { Invoke(OnFolderBrowserClick); };
             cmbFilesLimitTypes.SelectedIndexChanged += delegate { Invoke(ShowFilesLimitBlock); };
             btnNextStep1.Click += delegate { Invoke(OnNextStepClick); };
             picOrganizeFilesDescription.Click += delegate { Invoke(OnOrganizeFilesDescriptionClick); };
@@ -72,6 +61,8 @@ namespace FileRandomizer3000.WinForms.Views
         }
 
         private Step1ViewModel Model { get; set; }
+
+        public event Action OnFolderBrowserClick;
 
         public event Action OnNextStepClick;
 
@@ -138,10 +129,7 @@ namespace FileRandomizer3000.WinForms.Views
 
         void IView.Show()
         {
-            if (OnBeforeViewShown != null)
-            {
-                OnBeforeViewShown();
-            }
+            Invoke(OnBeforeViewShown);
 
             Visible = true;
         }

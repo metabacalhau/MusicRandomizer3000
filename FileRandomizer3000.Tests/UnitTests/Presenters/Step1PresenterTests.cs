@@ -7,6 +7,7 @@ using FileRandomizer3000.Core.Views;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Linq;
 
 namespace FileRandomizer3000.Tests.UnitTests.Presenters
 {
@@ -97,35 +98,35 @@ namespace FileRandomizer3000.Tests.UnitTests.Presenters
         public void RaiseOnNextStepClick_PathFromIsNotSelected_CallsShowPathFromIsEmptyErrorAndExpectedError()
         {
             SetUp();
-            _viewModelMock.SetupGet(x => x.PathFrom).Returns("");
-            _viewMock.Setup(x => x.ShowPathFromIsEmptyError("Pick a folder"));
+            _viewModelMock.SetupGet(x => x.PathsFrom).Returns((string[])null);
+            _viewMock.Setup(x => x.ShowPathFromIsEmptyError(It.IsAny<string>()));
 
             _viewMock.Raise(x => x.OnBeforeViewShown += null);
             _viewMock.Raise(x => x.OnNextStepClick += null);
 
-            _viewMock.Verify(x => x.ShowPathFromIsEmptyError("Pick a folder"), Times.Once);
+            _viewMock.Verify(x => x.ShowPathFromIsEmptyError(It.IsAny<string>()), Times.Once);
         }
 
         [Test]
         public void RaiseOnNextStepClick_PathFromIsNotAccessible_CallsShowPathFromIsEmptyErrorAndExpectedError()
         {
             SetUp();
-            _viewModelMock.SetupGet(x => x.PathFrom).Returns("sfddsggd");
-            _folderServiceMock.Setup(x => x.IsAccessible(_viewModelMock.Object.PathFrom)).Returns(false);
-            _viewMock.Setup(x => x.ShowPathFromIsInaccessible("Selected folder is inaccessible"));
+            _viewModelMock.SetupGet(x => x.PathsFrom).Returns(new string[] { "sfddsggd" });
+            _viewModelMock.Object.PathsFrom.ToList().ForEach(x => _folderServiceMock.Setup(y => y.IsAccessible(x)).Returns(false));
+            _viewMock.Setup(x => x.ShowPathFromIsInaccessible(It.IsAny<string>()));
 
             _viewMock.Raise(x => x.OnBeforeViewShown += null);
             _viewMock.Raise(x => x.OnNextStepClick += null);
 
-            _viewMock.Verify(x => x.ShowPathFromIsInaccessible("Selected folder is inaccessible"), Times.Once);
+            _viewMock.Verify(x => x.ShowPathFromIsInaccessible(It.IsAny<string>()), Times.Once);
         }
 
         [Test]
         public void RaiseOnNextStepClick_CallsUpdateSettings()
         {
             SetUp();
-            _viewModelMock.SetupGet(x => x.PathFrom).Returns("sfddsggd");
-            _folderServiceMock.Setup(x => x.IsAccessible(_viewModelMock.Object.PathFrom)).Returns(true);
+            _viewModelMock.SetupGet(x => x.PathsFrom).Returns(new string[] { "sfddsggd" });
+            _viewModelMock.Object.PathsFrom.ToList().ForEach(x =>  _folderServiceMock.Setup(y => y.IsAccessible(x)).Returns(true));
             _viewModelMock.SetupGet(x => x.SaveSettings).Returns(true);
             _viewModelMock.Setup(x => x.UpdateSettings());
 
@@ -139,8 +140,8 @@ namespace FileRandomizer3000.Tests.UnitTests.Presenters
         public void RaiseOnNextStepClick_CallsUpdateGlobalModel()
         {
             SetUp();
-            _viewModelMock.SetupGet(x => x.PathFrom).Returns("sfddsggd");
-            _folderServiceMock.Setup(x => x.IsAccessible(_viewModelMock.Object.PathFrom)).Returns(true);
+            _viewModelMock.SetupGet(x => x.PathsFrom).Returns(new string[] { "sfddsggd" });
+            _viewModelMock.Object.PathsFrom.ToList().ForEach(x =>  _folderServiceMock.Setup(y => y.IsAccessible(x)).Returns(true));
             _viewModelMock.Setup(x => x.UpdateGlobalModel());
 
             _viewMock.Raise(x => x.OnBeforeViewShown += null);
@@ -153,8 +154,8 @@ namespace FileRandomizer3000.Tests.UnitTests.Presenters
         public void RaiseOnNextStepClick_CallsHidePathFromError()
         {
             SetUp();
-            _viewModelMock.SetupGet(x => x.PathFrom).Returns("sfddsggd");
-            _folderServiceMock.Setup(x => x.IsAccessible(_viewModelMock.Object.PathFrom)).Returns(true);
+            _viewModelMock.SetupGet(x => x.PathsFrom).Returns(new string[] { "sfddsggd" });
+            _viewModelMock.Object.PathsFrom.ToList().ForEach(x =>  _folderServiceMock.Setup(y => y.IsAccessible(x)).Returns(true));
             _viewMock.Setup(x => x.HidePathFromError());
 
             _viewMock.Raise(x => x.OnBeforeViewShown += null);
@@ -167,8 +168,8 @@ namespace FileRandomizer3000.Tests.UnitTests.Presenters
         public void RaiseOnNextStepClick_CallsHideOrganizeFilesDescription()
         {
             SetUp();
-            _viewModelMock.SetupGet(x => x.PathFrom).Returns("sfddsggd");
-            _folderServiceMock.Setup(x => x.IsAccessible(_viewModelMock.Object.PathFrom)).Returns(true);
+            _viewModelMock.SetupGet(x => x.PathsFrom).Returns(new string[] { "sfddsggd" });
+            _viewModelMock.Object.PathsFrom.ToList().ForEach(x =>  _folderServiceMock.Setup(y => y.IsAccessible(x)).Returns(true));
             _viewMock.Setup(x => x.HideOrganizeFilesDescription());
 
             _viewMock.Raise(x => x.OnBeforeViewShown += null);
@@ -181,8 +182,8 @@ namespace FileRandomizer3000.Tests.UnitTests.Presenters
         public void RaiseOnNextStepClick_CallsStep2Presenter()
         {
             SetUp();
-            _viewModelMock.SetupGet(x => x.PathFrom).Returns("sfddsggd");
-            _folderServiceMock.Setup(x => x.IsAccessible(_viewModelMock.Object.PathFrom)).Returns(true);
+            _viewModelMock.SetupGet(x => x.PathsFrom).Returns(new string[] { "sfddsggd" });
+            _viewModelMock.Object.PathsFrom.ToList().ForEach(x =>  _folderServiceMock.Setup(y => y.IsAccessible(x)).Returns(true));
             _controllerMock.Setup(x => x.RunSingleton<Step2Presenter>());
 
             _viewMock.Raise(x => x.OnBeforeViewShown += null);

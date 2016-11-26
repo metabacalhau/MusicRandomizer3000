@@ -37,7 +37,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -47,7 +48,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -86,6 +88,7 @@
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Models\ComboBoxOption.cs" />
     <Compile Include="Models\CopyWorkerParameters.cs" />
+    <Compile Include="Presenters\FolderBrowserPresenter.cs" />
     <Compile Include="Services\Interfaces\IContext.cs" />
     <Compile Include="Services\Interfaces\IProcessWrapper.cs" />
     <Compile Include="Services\ProcessWrapper.cs" />
@@ -147,6 +150,7 @@
     <Compile Include="Services\TraverseService.cs" />
     <Compile Include="ViewModels\RandomizedFiles.cs" />
     <Compile Include="ViewModels\UniqueCharsPosition.cs" />
+    <Compile Include="Views\IFolderBrowserView.cs" />
     <Compile Include="Views\IMainFormView.cs" />
     <Compile Include="Views\IMainFormViewHost.cs" />
     <Compile Include="Views\IStep1View.cs" />

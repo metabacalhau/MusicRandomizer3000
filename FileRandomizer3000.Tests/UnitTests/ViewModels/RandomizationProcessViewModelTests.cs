@@ -243,7 +243,7 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             bool _valueIsSet = false;
 
-            _globalWizardViewModelMock.SetupSet(x => x.FormTitle).Callback((value) =>
+            _globalWizardViewModelMock.SetupSet(x => x.FormTitle = It.IsAny<string>()).Callback<string>(value =>
             {
                 if (value == formTitleValue)
                 {

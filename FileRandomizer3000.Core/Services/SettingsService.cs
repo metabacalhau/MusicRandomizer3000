@@ -31,11 +31,11 @@ namespace FileRandomizer3000.Core.Services
                     {
                         result = JsonConvert.DeserializeObject<T>(parameterValue);
                     }
-                    catch (JsonSerializationException ex)
+                    catch (JsonSerializationException)
                     {
                         result = default(T);
                     }
-                    catch (JsonReaderException ex)
+                    catch (JsonReaderException)
                     {
                         result = default(T);
                     }

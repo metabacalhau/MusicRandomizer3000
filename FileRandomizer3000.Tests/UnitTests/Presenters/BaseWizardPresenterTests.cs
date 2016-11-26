@@ -21,16 +21,16 @@ namespace FileRandomizer3000.Tests.UnitTests.Presenters
         private class PresenterNoArgument : BaseWizardPresenter<IView>
         {
             public PresenterNoArgument(IApplicationController controller, IView view) : base(controller, view) { }
-            public IApplicationController Controller { get { return base.Controller; } }
-            public IView View { get { return base.View; } }
+            public new IApplicationController Controller { get { return base.Controller; } }
+            public new IView View { get { return base.View; } }
             public override void Run() { }
         }
 
         private class PresenterWithArgument : BaseWizardPresenter<IView, object>
         {
             public PresenterWithArgument(IApplicationController controller, IView view) : base(controller, view) { }
-            public IApplicationController Controller { get { return base.Controller; } }
-            public IView View { get { return base.View; } }
+            public new IApplicationController Controller { get { return base.Controller; } }
+            public new IView View { get { return base.View; } }
             public override void Run(object argument) { }
         }
 

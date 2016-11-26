@@ -243,13 +243,14 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             bool _valueIsSet = false;
 
-            _globalWizardViewModelMock.SetupSet(x => x.FormTitle).Callback((value) =>
-            {
-                if (value == formTitleValue)
+            _globalWizardViewModelMock.SetupSet(x => x.FormTitle = It.IsAny<string>())
+                .Callback<string>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == formTitleValue)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step3ViewModelMock.Object.FormTitle = formTitleValue;
 
@@ -263,13 +264,14 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             _step3ViewModelMock.Object.SelectedOnDuplicateOption = new ComboBoxOption { ID = 1 };
             _globalWizardViewModelMock.SetupGet(x => x.CopyWorkerSettings).Returns(new CopyWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.OnDuplicateDoNotCopy).Callback((value) =>
-            {
-                if (value == true)
+            _globalWizardViewModelMock.SetupSet(x => x.RandomizerWorkerSettings.OnDuplicateDoNotCopy = It.IsAny<bool>())
+                .Callback<bool>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == true)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step3ViewModelMock.Object.UpdateGlobalModel();
 
@@ -283,13 +285,14 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             _step3ViewModelMock.Object.SelectedOnDuplicateOption = new ComboBoxOption { ID = 1 };
             _globalWizardViewModelMock.SetupGet(x => x.RandomizerWorkerSettings).Returns(new RandomizerWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.OnDuplicateDoNotCopy).Callback((value) =>
-            {
-                if (value == true)
+            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.OnDuplicateDoNotCopy = It.IsAny<bool>())
+                .Callback<bool>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == true)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step3ViewModelMock.Object.UpdateGlobalModel();
 
@@ -303,13 +306,14 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             _step3ViewModelMock.Object.SelectedOnDuplicateOption = new ComboBoxOption { ID = 2 };
             _globalWizardViewModelMock.SetupGet(x => x.RandomizerWorkerSettings).Returns(new RandomizerWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.OnDuplicateOverwrite).Callback((value) =>
-            {
-                if (value == true)
+            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.OnDuplicateOverwrite = It.IsAny<bool>())
+                .Callback<bool>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == true)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step3ViewModelMock.Object.UpdateGlobalModel();
 
@@ -323,13 +327,14 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             _step3ViewModelMock.Object.SelectedOnDuplicateOption = new ComboBoxOption { ID = 3 };
             _globalWizardViewModelMock.SetupGet(x => x.RandomizerWorkerSettings).Returns(new RandomizerWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.OnDuplicateAddPrefix).Callback((value) =>
-            {
-                if (value == true)
+            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.OnDuplicateAddPrefix = It.IsAny<bool>())
+                .Callback<bool>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == true)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step3ViewModelMock.Object.UpdateGlobalModel();
 
@@ -343,13 +348,14 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             _step3ViewModelMock.Object.SelectedOnDuplicateOption = new ComboBoxOption { ID = 4 };
             _globalWizardViewModelMock.SetupGet(x => x.RandomizerWorkerSettings).Returns(new RandomizerWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.OnDuplicateAddSuffix).Callback((value) =>
-            {
-                if (value == true)
+            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.OnDuplicateAddSuffix = It.IsAny<bool>())
+                .Callback<bool>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == true)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step3ViewModelMock.Object.UpdateGlobalModel();
 
@@ -361,15 +367,16 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         {
             bool _valueIsSet = false;
 
-            _step3ViewModelMock.Object.SelectedOnDuplicateOption = new ComboBoxOption { ID = 4 };
             _globalWizardViewModelMock.SetupGet(x => x.RandomizerWorkerSettings).Returns(new RandomizerWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.CharsPositionOnDuplicate).Callback((value) =>
-            {
-                if (value == UniqueCharsPosition.Suffix)
+            _globalWizardViewModelMock.SetupGet(x => x.CopyWorkerSettings.OnDuplicateAddSuffix).Returns(true);
+            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.CharsPositionOnDuplicate = It.IsAny<UniqueCharsPosition>())
+                .Callback<UniqueCharsPosition>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == UniqueCharsPosition.Suffix)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step3ViewModelMock.Object.UpdateGlobalModel();
 
@@ -381,15 +388,16 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         {
             bool _valueIsSet = false;
 
-            _step3ViewModelMock.Object.SelectedOnDuplicateOption = new ComboBoxOption { ID = 3 };
             _globalWizardViewModelMock.SetupGet(x => x.RandomizerWorkerSettings).Returns(new RandomizerWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.CharsPositionOnDuplicate).Callback((value) =>
-            {
-                if (value == UniqueCharsPosition.Prefix)
+            _globalWizardViewModelMock.SetupGet(x => x.CopyWorkerSettings.OnDuplicateAddPrefix).Returns(true);
+            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.CharsPositionOnDuplicate = It.IsAny<UniqueCharsPosition>())
+                .Callback<UniqueCharsPosition>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == UniqueCharsPosition.Prefix)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step3ViewModelMock.Object.UpdateGlobalModel();
 
@@ -403,13 +411,14 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
 
             _step3ViewModelMock.Object.SelectedOnDuplicateOption = new ComboBoxOption { ID = 100 };
             _globalWizardViewModelMock.SetupGet(x => x.RandomizerWorkerSettings).Returns(new RandomizerWorkerSettings());
-            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.CharsPositionOnDuplicate).Callback((value) =>
-            {
-                if (value == UniqueCharsPosition.None)
+            _globalWizardViewModelMock.SetupSet(x => x.CopyWorkerSettings.CharsPositionOnDuplicate = It.IsAny<UniqueCharsPosition>())
+                .Callback<UniqueCharsPosition>(value =>
                 {
-                    _valueIsSet = true;
-                }
-            });
+                    if (value == UniqueCharsPosition.None)
+                    {
+                        _valueIsSet = true;
+                    }
+                });
 
             _step3ViewModelMock.Object.UpdateGlobalModel();
 

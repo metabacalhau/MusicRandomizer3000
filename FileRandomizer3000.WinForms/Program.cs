@@ -47,6 +47,7 @@ namespace FileRandomizer3000.WinForms
                 .RegisterSingletonView<IStep3View, Step3View>()
                 .RegisterView<IRandomizationProcessView, RandomizationProcessView>()
                 .RegisterView<ICopyProcessView, CopyProcessView>()
+                .RegisterView<IFolderBrowserView, FolderBrowser>()
                 .RegisterInstance(new GlobalWizardViewModel(" - FileRandomizer3000"))
                 .RegisterInstance<SettingsBase>(Settings.Default)
                 .RegisterService<IBackgroundWorker, BackgroundWorkerAsync>()

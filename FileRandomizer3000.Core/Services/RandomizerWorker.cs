@@ -67,19 +67,11 @@ namespace FileRandomizer3000.Core.Services
                     }
                 }
 
-                if (!IsCancellationPending(e))
+                if (!IsCancellationPending(e) && settings.PathsFrom != null)
                 {
-                    if (settings.UseRecursiveSearch)
+                    foreach (string path in settings.PathsFrom)
                     {
-                        foreach (AppFile file in _traverseService.TraverseFolder(settings.PathFrom))
-                        {
-                            if (IsCancellationPending(e)) return;
-                            filesFound.Add(file);
-                        }
-                    }
-                    else
-                    {
-                        foreach (AppFile file in _fileService.GetFiles(settings.PathFrom))
+                        foreach (AppFile file in _traverseService.TraverseFolder(path))
                         {
                             if (IsCancellationPending(e)) return;
                             filesFound.Add(file);

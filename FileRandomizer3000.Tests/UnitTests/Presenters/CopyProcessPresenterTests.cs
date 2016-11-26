@@ -201,10 +201,9 @@ namespace FileRandomizer3000.Tests.UnitTests.Presenters
                 FileNameFull = "test"
             };
 
-            _viewModelMock.SetupSet(x => x.ProgressInfoText).Callback(x =>
-            {
-                Assert.IsTrue(x == file.FileNameFull);
-            });
+            _viewModelMock
+                .SetupSet(x => x.ProgressInfoText = It.IsAny<string>())
+                .Callback<string>(x => Assert.IsTrue(x == file.FileNameFull));
 
             _presenter.OnFileChanged(file);
 

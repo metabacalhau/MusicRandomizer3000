@@ -1,9 +1,13 @@
+.vs/
+.nuget/
+packages/
 FileRandomizer3000.Core/bin/
 FileRandomizer3000.Core/obj/
 FileRandomizer3000.WinForms/obj/
-FileRandomizer3000.Tests/bin/
-FileRandomizer3000.Tests/obj/Release/FileRandomizer3000.Tests.csproj.FileListAbsolute.txt
 FileRandomizer3000.WinForms/bin/
-packages/
-.nuget/
+FileRandomizer3000.Tests/bin/
 FileRandomizer3000.Tests/obj/
+Raccoom.TreeViewFolderBrowser/bin/
+Raccoom.TreeViewFolderBrowser/obj/
+Raccoom.TreeViewFolderBrowser.DataProviders/bin/
+Raccoom.TreeViewFolderBrowser.DataProviders/obj/

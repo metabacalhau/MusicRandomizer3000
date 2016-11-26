@@ -5,6 +5,7 @@ namespace FileRandomizer3000.Core.Views
 {
     public interface IStep1View : IView
     {
+        event Action OnFolderBrowserClick;
         event Action OnNextStepClick;
         event Action OnBeforeViewShown;
         event Action OnOrganizeFilesDescriptionClick;
