@@ -1,14 +1,7 @@
 ﻿using FileRandomizer3000.Core.Views;
 using Raccoom.Windows.Forms;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FileRandomizer3000.WinForms.Views
@@ -27,6 +20,8 @@ namespace FileRandomizer3000.WinForms.Views
             treeViewFolderBrowser.ShowRootLines = true;
             treeViewFolderBrowser.DataSource = provider;
             treeViewFolderBrowser.CheckBoxBehaviorMode = CheckBoxBehaviorMode.RecursiveChecked;
+
+            this.FormClosing += delegate { Invoke(SetSelectedFolders); };
         }
 
         public event Action<string[]> OnSetSelectedFolders;
@@ -36,7 +31,7 @@ namespace FileRandomizer3000.WinForms.Views
             ShowDialog();
         }
 
-        void IView.Close()
+        private void SetSelectedFolders()
         {
             if (OnSetSelectedFolders != null)
             {
@@ -49,15 +44,13 @@ namespace FileRandomizer3000.WinForms.Views
 
                 OnSetSelectedFolders(selectedDirectories);
             }
-
-            base.Close();
         }
 
         public void PopulateFolderBrowser(string[] folders)
         {
             if (folders != null)
             {
-                foreach(var folder in folders)
+                foreach (var folder in folders)
                 {
                     treeViewFolderBrowser.SelectedDirectories.Add(folder);
                 }

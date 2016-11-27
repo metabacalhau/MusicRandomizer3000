@@ -120,16 +120,16 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         public void PathFrom_PropertyChanged_FiresPropertyChangedValue()
         {
             _step1ViewModelMock.Setup(a => a.Initialize());
-            _step1ViewModelMock.Object.PathsFrom = new string[] { "111111" };
+            _step1ViewModelMock.Object.PathsFrom = new List<string> { "111111" };
 
-            _step1ViewModelMock.Object.ShouldNotifyOn(a => a.PathsFrom).When(a => a.PathsFrom = new string[] { "vdfgfdgfdg" });
+            _step1ViewModelMock.Object.ShouldNotifyOn(a => a.PathsFrom).When(a => a.PathsFrom = new List<string> { "vdfgfdgfdg" });
         }
 
         [Test]
         public void PathFrom_PropertyDidNotChange_DoesNotFirePropertyChangedValue()
         {
             _step1ViewModelMock.Setup(a => a.Initialize());
-            _step1ViewModelMock.Object.PathsFrom = new string[] { "vdfgfdgfdg" };
+            _step1ViewModelMock.Object.PathsFrom = new List<string> { "vdfgfdgfdg" };
 
             _step1ViewModelMock.Object.ShouldNotNotifyOn(a => a.PathsFrom).When(a => a.PathsFrom = _step1ViewModelMock.Object.PathsFrom);
         }
@@ -224,11 +224,11 @@ namespace FileRandomizer3000.Tests.UnitTests.ViewModels
         public void UpdateGlobalModel_PathFrom_MustSetValueOnGlobalModel()
         {
             _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.PathsFrom);
-            _step1ViewModelMock.Object.PathsFrom = new string[] { "value" };
+            _step1ViewModelMock.Object.PathsFrom = new List<string> { "value" };
 
             _step1ViewModelMock.Object.UpdateGlobalModel();
 
-            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.PathsFrom = _step1ViewModelMock.Object.PathsFrom, Times.Once());
+            _globalWizardViewModelMock.VerifySet(x => x.RandomizerWorkerSettings.PathsFrom = _step1ViewModelMock.Object.PathsFrom.ToArray(), Times.Once());
         }
 
         [Test]

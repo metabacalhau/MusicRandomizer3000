@@ -75,8 +75,8 @@ namespace FileRandomizer3000.Core.ViewModels
             }
         }
 
-        private string[] _pathsFrom;
-        public virtual string[] PathsFrom
+        private List<string> _pathsFrom;
+        public virtual List<string> PathsFrom
         {
             get
             {
@@ -84,7 +84,7 @@ namespace FileRandomizer3000.Core.ViewModels
             }
             set
             {
-                if (CheckPropertyChanged<string[]>("PathsFrom", ref _pathsFrom, ref value))
+                if (CheckPropertyChanged<List<string>>("PathsFrom", ref _pathsFrom, ref value))
                 {
                     FirePropertyChanged("PathsFrom");
                 }
@@ -192,7 +192,7 @@ namespace FileRandomizer3000.Core.ViewModels
         public virtual void UpdateGlobalModel()
         {
             _globalModel.RandomizerWorkerSettings.FindOnlyUniqueFiles = FindOnlyUniqueFiles;
-            _globalModel.RandomizerWorkerSettings.PathsFrom = PathsFrom;
+            _globalModel.RandomizerWorkerSettings.PathsFrom = PathsFrom.ToArray();
             _globalModel.RandomizerWorkerSettings.SelectedLimit = (LimitType)SelectedFilesLimit.ID;
             _globalModel.CopyWorkerSettings.SelectedLimit = (LimitType)SelectedFilesLimit.ID;
 
@@ -220,7 +220,7 @@ namespace FileRandomizer3000.Core.ViewModels
                 Step1Settings settings = new Step1Settings
                 {
                     FindOnlyUniqueFiles = FindOnlyUniqueFiles,
-                    PathsFrom = PathsFrom,
+                    PathsFrom = PathsFrom.ToArray(),
                     SelectedFilesLimitID = SelectedFilesLimit != null ? SelectedFilesLimit.ID : (int?)null,
                     SelectedSizeID = FilesSize.SelectedSize != null ? FilesSize.SelectedSize.ID : (int?)null,
                     SizeLimit = FilesSize.SizeLimit,
@@ -244,7 +244,7 @@ namespace FileRandomizer3000.Core.ViewModels
 
             if (settings != null && settings.SaveSettings)
             {
-                _pathsFrom = settings.PathsFrom;
+                _pathsFrom = new List<string>(settings.PathsFrom);
                 _selectedFilesLimit = FilesLimitTypes.SingleOrDefault(x => x.ID == settings.SelectedFilesLimitID);
 
                 if (_selectedFilesLimit == null)
@@ -260,7 +260,7 @@ namespace FileRandomizer3000.Core.ViewModels
             }
             else
             {
-                _pathsFrom = new string[] { };
+                _pathsFrom = new List<string>();
                 _selectedFilesLimit = FilesLimitTypes.First();
                 _findOnlyUniqueFiles = true;
                 _saveSettings = false;

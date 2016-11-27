@@ -3,6 +3,7 @@ using FileRandomizer3000.Core.Services.Interfaces;
 using FileRandomizer3000.Core.ViewModels;
 using FileRandomizer3000.Core.Views;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -29,6 +30,7 @@ namespace FileRandomizer3000.Core.Presenters
             View.OnBeforeViewShown -= OnBeforeViewShownHandler; // to call event handler only once
             View.OnBeforeViewShown += OnBeforeViewShownHandler;
 
+            View.OnFolderBrowserClick -= OpenFolderBrowser; // to call event handler only once
             View.OnFolderBrowserClick += OpenFolderBrowser;
 
             View.SetActiveView();
@@ -40,7 +42,7 @@ namespace FileRandomizer3000.Core.Presenters
 
             View.OnNextStepClick += () =>
             {
-                if (_model.PathsFrom == null || _model.PathsFrom.Length == 0)
+                if (_model.PathsFrom == null || _model.PathsFrom.Count == 0)
                 {
                     View.ShowPathFromIsEmptyError("Pick a folder");
                 }
@@ -95,9 +97,7 @@ namespace FileRandomizer3000.Core.Presenters
 
         private void OpenFolderBrowser()
         {
-            _model.PathsFrom = new string[] { @"E:\Music2" };
-
-            Controller.Run<FolderBrowserPresenter, string[]>(_model.PathsFrom);
+            Controller.Run<FolderBrowserPresenter, List<string>>(_model.PathsFrom);
         }
     }
 }

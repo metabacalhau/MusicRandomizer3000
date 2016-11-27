@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FolderBrowser));
             this.treeViewFolderBrowser = new Raccoom.Windows.Forms.TreeViewFolderBrowser();
             this.SuspendLayout();
             // 
             // treeViewFolderBrowser
             // 
+            this.treeViewFolderBrowser.BackColor = System.Drawing.SystemColors.Control;
             this.treeViewFolderBrowser.DataSource = null;
             this.treeViewFolderBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewFolderBrowser.HideSelection = false;
@@ -49,11 +51,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.treeViewFolderBrowser);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FolderBrowser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FolderBrowser";
             this.ResumeLayout(false);
 
         }

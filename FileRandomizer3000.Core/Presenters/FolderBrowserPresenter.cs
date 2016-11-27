@@ -1,16 +1,12 @@
-﻿using FileRandomizer3000.Core.Views;
-using System;
+﻿using FileRandomizer3000.Core.Infrastructure.Interfaces;
+using FileRandomizer3000.Core.Views;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FileRandomizer3000.Core.Infrastructure.Interfaces;
 
 namespace FileRandomizer3000.Core.Presenters
 {
-    public class FolderBrowserPresenter : BaseWizardPresenter<IFolderBrowserView, string[]>
+    public class FolderBrowserPresenter : BaseWizardPresenter<IFolderBrowserView, List<string>>
     {
-        private string[] folders = null;
+        private List<string> folders;
 
         public FolderBrowserPresenter(IApplicationController controller, IFolderBrowserView view) : base(controller, view)
         {
@@ -19,13 +15,21 @@ namespace FileRandomizer3000.Core.Presenters
 
         private void OnSetSelectedFolders(string[] folders)
         {
-            this.folders = folders;
+            this.folders.Clear();
+
+            if (folders != null)
+            {
+                foreach (var folder in folders)
+                {
+                    this.folders.Add(folder);
+                }
+            }
         }
 
-        public override void Run(string[] folders)
+        public override void Run(List<string> folders)
         {
             this.folders = folders;
-            View.PopulateFolderBrowser(this.folders);
+            View.PopulateFolderBrowser(folders.ToArray());
             View.Show();
         }
     }
