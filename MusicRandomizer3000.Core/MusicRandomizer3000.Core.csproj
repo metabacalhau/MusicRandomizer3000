@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{05865A40-7DCF-44B7-81DE-72CCBC16FA28}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MusicRandomizer3000.Core</RootNamespace>
+    <AssemblyName>MusicRandomizer3000.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.2.0.402, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.2.0.402\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=4.2.0.402, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.2.0.402\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Infrastructure\ApplicationController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Interfaces\IApplicationController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\Interfaces\IContainerAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\StructureMapAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Models\ComboBoxOption.cs" />
+    <Compile Include="Models\CopyWorkerParameters.cs" />
+    <Compile Include="Presenters\FolderBrowserPresenter.cs" />
+    <Compile Include="Services\Interfaces\IContext.cs" />
+    <Compile Include="Services\Interfaces\IProcessWrapper.cs" />
+    <Compile Include="Services\ProcessWrapper.cs" />
+    <Compile Include="Services\SynchronizationContextAdapter.cs" />
+    <Compile Include="Utilities\EnumerableExtensions.cs" />
+    <Compile Include="ViewModels\FilesAndFoldersLimitSettings.cs" />
+    <Compile Include="ViewModels\FilesNumberLimitSettings.cs" />
+    <Compile Include="ViewModels\FilesSizeLimitSettings.cs" />
+    <Compile Include="Models\Limit.cs" />
+    <Compile Include="Models\IStepSetting.cs" />
+    <Compile Include="Presenters\BaseWizardPresenter.cs" />
+    <Compile Include="Utilities\CommonHelper.cs" />
+    <Compile Include="Models\Step1Settings.cs" />
+    <Compile Include="Models\Step2Settings.cs" />
+    <Compile Include="Models\Step3Settings.cs" />
+    <Compile Include="Services\CopyWorker.cs" />
+    <Compile Include="Services\DriveService.cs" />
+    <Compile Include="Services\FileNameSizeComparer.cs" />
+    <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\FileSystem.cs" />
+    <Compile Include="Services\FolderService.cs" />
+    <Compile Include="Services\Interfaces\IBackgroundWorker.cs" />
+    <Compile Include="Services\Interfaces\IBackgroundWorkerFactory.cs" />
+    <Compile Include="Services\Interfaces\ICopyWorker.cs" />
+    <Compile Include="Services\Interfaces\IDriveService.cs" />
+    <Compile Include="Services\Interfaces\IFileHelper.cs" />
+    <Compile Include="Services\Interfaces\IFileExtension.cs" />
+    <Compile Include="Services\Interfaces\IFileService.cs" />
+    <Compile Include="Services\Interfaces\IRandomizerWorker.cs" />
+    <Compile Include="Services\Interfaces\ISettingsService.cs" />
+    <Compile Include="Services\Interfaces\ITagService.cs" />
+    <Compile Include="Services\Interfaces\ITraverseService.cs" />
+    <Compile Include="Services\Interfaces\IUniqueCharsGenerator.cs" />
+    <Compile Include="Services\BackgroundWorkerFactory.cs" />
+    <Compile Include="Services\BackgroundWorkerAsync.cs" />
+    <Compile Include="Services\BackgroundWorkerSync.cs" />
+    <Compile Include="Services\BaseUniqueCharsGenerator.cs" />
+    <Compile Include="Models\CopyWorkerSettings.cs" />
+    <Compile Include="Models\AppDrive.cs" />
+    <Compile Include="Services\DefaultMusicExtensions.cs" />
+    <Compile Include="Models\ExtensionMethods.cs" />
+    <Compile Include="Services\FileExtensionDecorator.cs" />
+    <Compile Include="Models\AppFile.cs" />
+    <Compile Include="Models\AppFolder.cs" />
+    <Compile Include="Services\Interfaces\IFileSystem.cs" />
+    <Compile Include="Services\HashCharactersGenerator.cs" />
+    <Compile Include="Services\GuidCharactersGenerator.cs" />
+    <Compile Include="Models\RandomizerWorkerSettings.cs" />
+    <Compile Include="Presenters\BasePresenter.cs" />
+    <Compile Include="Presenters\IPresenter.cs" />
+    <Compile Include="Presenters\MainFormPresenter.cs" />
+    <Compile Include="Presenters\Step1Presenter.cs" />
+    <Compile Include="Presenters\Step2Presenter.cs" />
+    <Compile Include="Presenters\Step3Presenter.cs" />
+    <Compile Include="Presenters\RandomizationProcessPresenter.cs" />
+    <Compile Include="Presenters\CopyProcessPresenter.cs" />
+    <Compile Include="Services\RandomizerWorker.cs" />
+    <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\TraverseService.cs" />
+    <Compile Include="ViewModels\RandomizedFiles.cs" />
+    <Compile Include="ViewModels\UniqueCharsPosition.cs" />
+    <Compile Include="Views\IFolderBrowserView.cs" />
+    <Compile Include="Views\IMainFormView.cs" />
+    <Compile Include="Views\IMainFormViewHost.cs" />
+    <Compile Include="Views\IStep1View.cs" />
+    <Compile Include="Views\IStep2View.cs" />
+    <Compile Include="Views\IStep3View.cs" />
+    <Compile Include="Views\IRandomizationProcessView.cs" />
+    <Compile Include="Views\ICopyProcessView.cs" />
+    <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\IViewHost.cs" />
+    <Compile Include="Views\MainFormViewHost.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\ViewModelLambdaBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\FileHelper.cs" />
+    <Compile Include="Services\Interfaces\IFolderService.cs" />
+    <Compile Include="ViewModels\PropertyName.cs" />
+    <Compile Include="ViewModels\GlobalWizardViewModel.cs" />
+    <Compile Include="ViewModels\Step1ViewModel.cs" />
+    <Compile Include="ViewModels\Step2ViewModel.cs" />
+    <Compile Include="ViewModels\Step3ViewModel.cs" />
+    <Compile Include="ViewModels\RandomizationProcessViewModel.cs" />
+    <Compile Include="ViewModels\CopyProcessViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
