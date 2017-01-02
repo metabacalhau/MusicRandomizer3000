@@ -19,3 +19,6 @@ C#, .NET 4.5.2, WinForms + MVP, [TreeViewFolderBrowser](https://github.com/Chris
 
 ## Requirements
 OS Windows, .NET >=4.5.2
+
+## Icon
+[Icon pack by Icons8](https://icons8.com)
