@@ -1,11 +1,12 @@
 language: csharp
 solution: MusicRandomizer3000.sln
+services:
+  - xvfb
 install:
   - nuget restore MusicRandomizer3000.sln
   - nuget install NUnit.Runners -Version 3.4.1 -OutputDirectory testrunner
 before_script:
   - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 script:
   - xbuild /p:Configuration=Release MusicRandomizer3000.sln
