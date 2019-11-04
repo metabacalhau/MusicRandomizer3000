@@ -4,10 +4,10 @@ services:
   - xvfb
 install:
   - nuget restore MusicRandomizer3000.sln
-  - nuget install NUnit.Runners -Version 3.4.1 -OutputDirectory testrunner
+  - nuget install NUnit.Runners -Version 3.10.0 -OutputDirectory testrunner
 before_script:
   - "export DISPLAY=:99.0"
   - sleep 3 # give xvfb some time to start
 script:
-  - xbuild /p:Configuration=Release MusicRandomizer3000.sln
-  - mono ./testrunner/NUnit.ConsoleRunner.3.4.1/tools/nunit3-console.exe ./MusicRandomizer3000.Tests/bin/Release/MusicRandomizer3000.Tests.dll
+  - msbuild /p:Configuration=Release MusicRandomizer3000.sln
+  - mono ./testrunner/NUnit.ConsoleRunner.3.10.0/tools/nunit3-console.exe ./MusicRandomizer3000.Tests/bin/Release/MusicRandomizer3000.Tests.dll
