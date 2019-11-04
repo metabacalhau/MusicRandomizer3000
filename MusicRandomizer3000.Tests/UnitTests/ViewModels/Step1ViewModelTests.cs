@@ -261,6 +261,7 @@ namespace MusicRandomizer3000.Tests.UnitTests.ViewModels
             filesNumberLimitSettingsMock.SetupGet(x => x.Number).Returns(100);
             _step1ViewModelMock.Object.SelectedFilesLimit = _step1ViewModelMock.Object.FilesLimitTypes.Single(x => x.ID == (int)LimitType.FilesNumber);
             _step1ViewModelMock.SetupGet(x => x.FilesNumber).Returns(filesNumberLimitSettingsMock.Object);
+            _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.SelectedLimit);
             _globalWizardViewModelMock.SetupProperty(x => x.RandomizerWorkerSettings.FilesNumberLimit);
 
             _step1ViewModelMock.Object.UpdateGlobalModel();
